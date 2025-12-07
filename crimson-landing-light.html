@@ -1,0 +1,2686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crimson – AI CFO for Startups & SMBs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --crimson: #C1121F;
+      --crimson-bright: #E63946;
+      --crimson-dark: #9A0D1A;
+      --crimson-subtle: #FEF2F2;
+      --crimson-glow: rgba(193, 18, 31, 0.2);
+      --crimson-glow-strong: rgba(193, 18, 31, 0.35);
+      
+      --bg-base: #FAFAF9;
+      --bg-warm: #F5F4F1;
+      --bg-card: #FFFFFF;
+      --bg-elevated: #FFFFFF;
+      --bg-glass: rgba(255, 255, 255, 0.7);
+      
+      --border: rgba(0, 0, 0, 0.06);
+      --border-light: rgba(0, 0, 0, 0.08);
+      --border-dark: rgba(0, 0, 0, 0.12);
+      
+      --text-primary: #1A1A1A;
+      --text-secondary: #52525B;
+      --text-tertiary: #A1A1AA;
+      
+      --success: #059669;
+      --success-bg: #ECFDF5;
+      --warning: #D97706;
+      --warning-bg: #FFFBEB;
+      --danger: #DC2626;
+      --danger-bg: #FEF2F2;
+      
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-thin: 'Sora', sans-serif;
+      
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.08);
+      --shadow-xl: 0 30px 80px rgba(0,0,0,0.1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .nav-logo span, strong, b {
+      font-family: var(--font-thin);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+
+    /* Subtle dot pattern background */
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+      background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.07) 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+
+    /* Floating gradient orbs */
+    .bg-orbs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: orbFloat 25s ease-in-out infinite;
+    }
+
+    .bg-orb.orb-1 {
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, rgba(193, 18, 31, 0.12) 0%, rgba(193, 18, 31, 0.03) 100%);
+      top: -200px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .bg-orb.orb-2 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, rgba(193, 18, 31, 0.08) 0%, rgba(251, 191, 36, 0.05) 100%);
+      bottom: 20%;
+      left: -100px;
+      animation-delay: -8s;
+    }
+
+    .bg-orb.orb-3 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(193, 18, 31, 0.05) 100%);
+      top: 50%;
+      right: 10%;
+      animation-delay: -15s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.05); }
+      50% { transform: translate(-20px, 20px) scale(0.95); }
+      75% { transform: translate(20px, 30px) scale(1.02); }
+    }
+
+    .bg-hex {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+      background-image:
+        linear-gradient(30deg, rgba(193, 18, 31, 0.08) 12%, transparent 12.5%, transparent 87%, rgba(193, 18, 31, 0.08) 87.5%, rgba(193, 18, 31, 0.08)),
+        linear-gradient(150deg, rgba(193, 18, 31, 0.06) 12%, transparent 12.5%, transparent 87%, rgba(193, 18, 31, 0.06) 87.5%, rgba(193, 18, 31, 0.06)),
+        linear-gradient(90deg, rgba(193, 18, 31, 0.04) 2%, transparent 2%);
+      background-size: 34px 59px;
+      mix-blend-mode: multiply;
+      mask-image: radial-gradient(circle at center, transparent 30%, black 80%);
+      -webkit-mask-image: radial-gradient(circle at center, transparent 30%, black 80%);
+      animation: hexDrift 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes hexDrift {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(12px, -8px, 0); }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    nav.scrolled {
+      background: rgba(250, 250, 249, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .nav-logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo span {
+      font-family: var(--font-thin);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--crimson);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--crimson);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 30px rgba(193, 18, 31, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .nav-cta:hover {
+      background: var(--crimson-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(193, 18, 31, 0.28), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .nav-cta:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(193, 18, 31, 0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+      justify-content: center;
+    }
+
+    .hero-container {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      padding: 0.5rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(5, 150, 105, 0); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-thin);
+      font-size: clamp(3rem, 5.5vw, 4.5rem);
+      line-height: 1.05;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 50%, #FF6B6B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-form {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+    }
+
+    .hero-form input {
+      flex: 1;
+      max-width: 420px;
+      padding: 1.1rem 1.5rem;
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      font-size: 1rem;
+      font-family: var(--font-body);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-form input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .hero-form input:focus {
+      outline: none;
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 4px var(--crimson-glow);
+    }
+
+    .hero-form button {
+      padding: 1.1rem 2rem;
+      background: var(--crimson);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      box-shadow: 0 12px 28px rgba(193, 18, 31, 0.25), inset 0 1px 0 rgba(255,255,255,0.25);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-form button:hover {
+      background: var(--crimson-dark);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 18px 36px rgba(193, 18, 31, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    .hero-form button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(193, 18, 31, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .hero-form button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Button 3D treatment */
+    .forecast-tab,
+    .reports-export,
+    .chat-send,
+    .play-btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2);
+      transform: translateY(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .forecast-tab::before,
+    .reports-export::before,
+    .chat-send::before,
+    .play-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .forecast-tab:hover,
+    .reports-export:hover,
+    .chat-send:hover,
+    .play-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .forecast-tab:active,
+    .reports-export:active,
+    .chat-send:active,
+    .play-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    /* Hero Visual - Floating Dashboard */
+    .hero-visual {
+      position: relative;
+      perspective: 1000px;
+      animation: fadeIn 1s ease 0.5s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .floating-dashboard {
+      position: relative;
+      transform: rotateY(-8deg) rotateX(5deg);
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-dashboard:hover {
+      transform: rotateY(-2deg) rotateX(2deg);
+    }
+
+    .dashboard-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow-xl), 0 0 60px rgba(193, 18, 31, 0.06);
+    }
+
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+      font-weight: 600;
+    }
+
+    .dashboard-label svg {
+      width: 14px;
+      height: 14px;
+      color: var(--crimson);
+    }
+
+    .dashboard-status {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--danger-bg);
+      color: var(--danger);
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .dashboard-status .dot {
+      width: 6px;
+      height: 6px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .dashboard-balance {
+      margin-bottom: 0.5rem;
+    }
+
+    .dashboard-balance-value {
+      font-family: var(--font-display);
+      font-size: 3.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .dashboard-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.85rem;
+      background: var(--success-bg);
+      color: var(--success);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .dashboard-metric {
+      background: var(--bg-warm);
+      padding: 1.25rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .dashboard-metric-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-tertiary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .dashboard-metric-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .dashboard-metric-value.warning {
+      color: var(--warning);
+    }
+
+    .dashboard-metric-value.danger {
+      color: var(--danger);
+    }
+
+    /* Floating decorative elements */
+    .float-element {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-lg);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .float-element.top-right {
+      top: -30px;
+      right: -40px;
+      animation-delay: -2s;
+    }
+
+    .float-element.bottom-left {
+      bottom: 40px;
+      left: -60px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .float-element-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      margin-bottom: 0.25rem;
+    }
+
+    .float-element-value {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .float-element-value.success {
+      color: var(--success);
+    }
+
+    /* Demo Section */
+    .demo {
+      padding: 8rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .demo-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-thin);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .demo-video {
+      position: relative;
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-warm) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .demo-video::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 30% 30%, rgba(193, 18, 31, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(193, 18, 31, 0.05) 0%, transparent 50%);
+    }
+
+    /* Decorative lines in demo */
+    .demo-video::after {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .demo-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .demo-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      background: radial-gradient(circle at 30% 30%, rgba(250, 250, 249, 0.65), rgba(250, 250, 249, 0.25));
+      backdrop-filter: blur(4px);
+      transition: opacity 0.35s ease;
+      pointer-events: auto;
+    }
+
+    .demo-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .demo-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      height: 44px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+    }
+
+    .play-btn {
+      width: 100px;
+      height: 100px;
+      background: var(--crimson);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 15px 45px rgba(193, 18, 31, 0.3), inset 0 1px 0 rgba(255,255,255,0.25);
+      transform: translateY(0);
+    }
+
+    .play-btn::before {
+      content: '';
+      position: absolute;
+      inset: -15px;
+      border: 2px solid rgba(193, 18, 31, 0.2);
+      border-radius: 50%;
+      animation: playRing 2s ease-out infinite;
+    }
+
+    .play-btn::after {
+      content: '';
+      position: absolute;
+      inset: -30px;
+      border: 1px solid rgba(193, 18, 31, 0.1);
+      border-radius: 50%;
+      animation: playRing 2s ease-out infinite 0.5s;
+    }
+
+    @keyframes playRing {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    .play-btn svg {
+      width: 36px;
+      height: 36px;
+      fill: white;
+      margin-left: 6px;
+    }
+
+    .demo-video:hover .play-btn {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 22px 60px rgba(193, 18, 31, 0.34), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    /* Sync Section */
+    .sync {
+      padding: 4rem 2rem 8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sync-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .sync-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 4rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sync-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--crimson), var(--crimson-bright), var(--warning));
+    }
+
+    .sync h2 {
+      font-family: var(--font-thin);
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .sync p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .sync-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .sync-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-tertiary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .sync-logo:hover {
+      color: var(--text-secondary);
+    }
+
+    .sync-logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .sync-logo:hover .sync-logo-icon {
+      border-color: var(--crimson-glow);
+      box-shadow: 0 4px 15px var(--crimson-glow);
+    }
+
+    .sync-logo-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 4rem 2rem 10rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .features-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 8rem;
+    }
+
+    .features-header h2 {
+      font-family: var(--font-thin);
+      font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .features-header p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    .feature {
+      max-width: 1300px;
+      margin: 0 auto 10rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .feature:nth-child(even) {
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    .feature:nth-child(even) .feature-content {
+      order: 2;
+    }
+
+    .feature:nth-child(even) .feature-visual {
+      order: 1;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      background: var(--crimson);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-content h3 {
+      font-family: var(--font-thin);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-content p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.75;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .feature-list li .check {
+      width: 24px;
+      height: 24px;
+      background: var(--success-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-list li .check svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--success);
+      stroke-width: 3;
+    }
+
+    /* Chat Feature Visual */
+    .chat-window {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .chat-header {
+      background: var(--bg-warm);
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px var(--crimson-glow);
+    }
+
+    .chat-avatar img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .chat-info h4 {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .chat-info span {
+      font-size: 0.8rem;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .chat-info span::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+    }
+
+    .chat-messages {
+      padding: 2rem;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .chat-message {
+      max-width: 85%;
+      padding: 1.25rem 1.5rem;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .chat-message.user {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+
+    .chat-message.ai {
+      background: var(--crimson-subtle);
+      border: 1px solid rgba(193, 18, 31, 0.15);
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+    }
+
+    .chat-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chat-message .highlight {
+      color: var(--crimson);
+      font-weight: 700;
+    }
+
+    .chat-typing {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.8rem 1rem;
+      background: var(--bg-warm);
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      max-width: 70%;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      align-self: flex-start;
+    }
+
+    .chat-typing.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chat-typing span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--crimson);
+      animation: typing 1s ease-in-out infinite;
+    }
+
+    .chat-typing span:nth-child(2) { animation-delay: 0.1s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.2s; }
+
+    @keyframes typing {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .chat-input-area {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.9rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 0.9rem;
+      background: var(--bg-warm);
+      color: var(--text-primary);
+    }
+
+    .chat-input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .chat-send {
+      width: 48px;
+      height: 48px;
+      background: var(--crimson);
+      border: none;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 12px 26px rgba(193, 18, 31, 0.24), inset 0 1px 0 rgba(255,255,255,0.2);
+      transform: translateY(0);
+    }
+
+    .chat-send:hover {
+      background: var(--crimson-dark);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 16px 30px rgba(193, 18, 31, 0.28), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .chat-send:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(193, 18, 31, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .chat-send svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    /* Metrics Visual */
+    .metrics-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .metrics-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .metrics-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-tertiary);
+      font-weight: 600;
+    }
+
+    .metrics-title svg {
+      width: 14px;
+      height: 14px;
+      color: var(--crimson);
+    }
+
+    .metrics-live {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--success);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .metrics-live::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .metrics-main {
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-dark) 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px var(--crimson-glow);
+    }
+
+    .metrics-main::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 50%);
+    }
+
+    .metrics-main-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .metrics-main-value {
+      font-family: var(--font-thin);
+      font-size: 3rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+
+    .metrics-main-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255,255,255,0.2);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: white;
+      font-weight: 500;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .metric-item {
+      background: var(--bg-warm);
+      padding: 1.25rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .metric-item-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-tertiary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-item-value {
+      font-size: 1.4rem;
+      font-family: var(--font-thin);
+      font-weight: 600;
+    }
+
+    .metric-item-value.warning { color: var(--warning); }
+    .metric-item-value.danger { color: var(--danger); }
+    .metric-item-value.success { color: var(--success); }
+
+    /* Forecast Visual */
+    .forecast-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .forecast-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .forecast-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .forecast-tabs {
+      display: flex;
+      gap: 0.35rem;
+      background: var(--bg-warm);
+      padding: 0.35rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .forecast-tab {
+      padding: 0.5rem 1rem;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.18);
+      transform: translateY(0);
+    }
+
+    .forecast-tab.active {
+      background: var(--text-primary);
+      color: white;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+
+    .forecast-chart {
+      height: 240px;
+      position: relative;
+      margin-bottom: 1.5rem;
+      padding-left: 3rem;
+      padding-bottom: 2.25rem;
+    }
+
+    .forecast-chart svg {
+      width: calc(100% - 0.5rem);
+      height: 100%;
+      margin-left: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chart-line {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.5s ease;
+    }
+
+    .chart-line.optimistic { stroke: var(--success); }
+    .chart-line.base { stroke: var(--warning); }
+    .chart-line.conservative { stroke: var(--crimson); }
+
+    .chart-area {
+      opacity: 0.12;
+      transition: all 0.5s ease;
+    }
+
+    .chart-area.optimistic { fill: var(--success); }
+
+    .forecast-y-axis {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+
+    .forecast-y-axis span {
+      transform: translateX(-0.35rem);
+    }
+
+    .forecast-x-axis {
+      position: absolute;
+      left: 3rem;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      padding-right: 0.5rem;
+      pointer-events: none;
+    }
+
+    .forecast-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .forecast-stat {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+    }
+
+    .forecast-stat .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .forecast-stat .stat-value {
+      font-family: var(--font-thin);
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--text-primary);
+    }
+
+    .forecast-stat.optimistic .stat-value { color: var(--success); }
+    .forecast-stat.base .stat-value { color: var(--warning); }
+    .forecast-stat.conservative .stat-value { color: var(--crimson); }
+
+    .forecast-legend {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.optimistic { background: var(--success); }
+    .legend-dot.base { background: var(--warning); }
+    .legend-dot.conservative { background: var(--crimson); }
+
+    /* Reports Visual */
+    .reports-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .reports-toolbar {
+      background: var(--bg-warm);
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .reports-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .reports-export {
+      background: var(--crimson);
+      color: white;
+      padding: 0.6rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 12px 26px rgba(193, 18, 31, 0.24), inset 0 1px 0 rgba(255,255,255,0.2);
+      transform: translateY(0);
+    }
+
+    .reports-export:hover {
+      background: var(--crimson-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(193, 18, 31, 0.28), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .reports-export:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(193, 18, 31, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .reports-content {
+      padding: 2rem;
+    }
+
+    .reports-section {
+      margin-bottom: 2rem;
+    }
+
+    .reports-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .reports-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-tertiary);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .reports-section-content {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .reports-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .reports-stat {
+      background: var(--bg-warm);
+      padding: 1.25rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .reports-stat-value {
+      font-family: var(--font-thin);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .reports-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* FAQ Section */
+    .faq {
+      padding: 8rem 2rem;
+      position: relative;
+      z-index: 1;
+      background: var(--bg-warm);
+    }
+
+    .faq::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-dark), transparent);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq h2 {
+      font-family: var(--font-thin);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-item:hover {
+      border-color: var(--border-dark);
+      box-shadow: var(--shadow-md);
+    }
+
+    .faq-item.open {
+      border-color: var(--crimson-glow);
+      box-shadow: 0 4px 20px var(--crimson-glow);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem;
+      background: none;
+      border: none;
+      text-align: left;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .faq-question .icon {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-warm);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question svg {
+      width: 16px;
+      height: 16px;
+      color: var(--text-tertiary);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.open .faq-question .icon {
+      background: var(--crimson);
+    }
+
+    .faq-item.open .faq-question svg {
+      color: white;
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+    }
+
+    .faq-answer p {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text-primary);
+      color: white;
+      padding: 5rem 2rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-brand img {
+      width: 40px;
+      height: auto;
+    }
+
+    .footer-brand span {
+      font-family: var(--font-thin);
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .footer-desc {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      max-width: 300px;
+      line-height: 1.7;
+    }
+
+    .footer-column h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.25rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-column a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 0.85rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copyright {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-social a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .footer-social a:hover {
+      background: var(--crimson);
+    }
+
+    .footer-social svg {
+      width: 20px;
+      height: 20px;
+      fill: rgba(255,255,255,0.7);
+    }
+
+    .footer-social a:hover svg {
+      fill: white;
+    }
+
+    /* Scroll animations */
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-container,
+      .feature,
+      .feature:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+
+      .feature:nth-child(even) .feature-content,
+      .feature:nth-child(even) .feature-visual {
+        order: unset;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .floating-dashboard {
+        transform: none;
+      }
+
+      .floating-dashboard:hover {
+        transform: none;
+      }
+
+      .float-element {
+        display: none;
+      }
+
+      .forecast-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-form {
+        flex-direction: column;
+      }
+
+      .hero-form input {
+        max-width: 100%;
+      }
+
+      .sync-card {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .sync-logos {
+        gap: 2rem;
+      }
+
+      .forecast-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .reports-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-pattern"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+  </div>
+  <div class="bg-hex"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="crimson-logo.png" alt="Crimson">
+        <span>Crimson</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="mailto:hello@crimson.ai" class="nav-cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Contact
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Now in Beta
+        </div>
+        <h1>CFO-level financial analysis with <span class="gradient-text">AI</span></h1>
+        <p>Ask finance questions, track your metrics, and delegate work with documents to AI. Your startup's financial command center.</p>
+        <form class="hero-form" onsubmit="handleWaitlist(event)">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit">Join Waitlist</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="demo" id="demo">
+    <div class="demo-container reveal">
+      <div class="section-header">
+        <h2>See Crimson in action</h2>
+        <p>Watch how Crimson transforms the way you understand and manage your finances</p>
+      </div>
+      <div class="demo-video">
+        <video id="demo-video" preload="metadata" poster="crimson-logo.png" muted playsinline>
+          <source src="Demo_Crimson copy.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="demo-overlay" id="demo-overlay">
+          <img src="crimson-logo.png" alt="Crimson" class="demo-logo">
+          <div class="play-btn" id="demo-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sync Section -->
+  <section class="sync">
+    <div class="sync-container reveal">
+      <div class="sync-card">
+        <h2>Set up once. Stay in sync.</h2>
+        <p>Crimson uses OpenBanking APIs to securely connect your financial data</p>
+        <div class="sync-logos">
+          <div class="sync-logo">
+            <div class="sync-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            Plaid
+          </div>
+          <div class="sync-logo">
+            <div class="sync-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            Stripe
+          </div>
+          <div class="sync-logo">
+            <div class="sync-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            QuickBooks
+          </div>
+          <div class="sync-logo">
+            <div class="sync-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            Google Sheets
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features-header reveal">
+      <h2>Everything your finance team needs</h2>
+      <p>Powerful AI-driven tools to understand, forecast, and communicate your financial story</p>
+    </div>
+
+    <!-- Feature 1: AI Chat -->
+    <div class="feature reveal">
+      <div class="feature-content">
+        <span class="feature-tag">AI Copilot</span>
+        <h3>Ask anything about your finances</h3>
+        <p>Chat naturally with your AI CFO. Get instant answers about runway, burn rate, revenue trends, and more. No spreadsheet digging required.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Natural language financial queries
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Context-aware insights from your data
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Scenario exploration in conversation
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="chat-avatar">
+              <img src="crimson-logo.png" alt="Crimson">
+            </div>
+            <div class="chat-info">
+              <h4>Crimson AI</h4>
+              <span>Online</span>
+            </div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-message user" id="chat-msg-user">What's our current runway and how can we extend it?</div>
+            <div class="chat-typing" id="chat-typing">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="chat-message ai" id="chat-msg-ai">Based on your current cash balance of <span class="highlight">$850K</span> and monthly burn of <span class="highlight">$45K</span>, your runway is <span class="highlight">3 months</span>. To extend it, consider: reducing AWS spend by 20% (saves $4K/mo), renegotiating vendor contracts, or delaying the Q2 hiring plan.</div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" class="chat-input" placeholder="Ask about your finances..." readonly>
+              <button class="chat-send" type="button">
+                <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Feature 2: Metrics Dashboard -->
+    <div class="feature reveal">
+      <div class="feature-content">
+        <span class="feature-tag">Real-Time Metrics</span>
+        <h3>Your financial pulse, at a glance</h3>
+        <p>A live dashboard that tracks what matters most. Total balance, runway status, burn rate, and cash flow—all updated automatically from your connected accounts.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Live cash position tracking
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Automatic runway calculations
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Expense categorization & alerts
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="metrics-card">
+          <div class="metrics-header">
+            <div class="metrics-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Live Snapshot
+            </div>
+            <div class="metrics-live">Live</div>
+          </div>
+          <div class="metrics-main">
+            <div class="metrics-main-label">Total Balance</div>
+            <div class="metrics-main-value">$850,000</div>
+            <span class="metrics-main-change">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>
+              +2.3% vs last month
+            </span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <div class="metric-item-label">Runway</div>
+              <div class="metric-item-value warning">3 months</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-item-label">Burn Rate</div>
+              <div class="metric-item-value">$45K/mo</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-item-label">Top Expense</div>
+              <div class="metric-item-value">Payroll</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-item-label">Net Change</div>
+              <div class="metric-item-value danger">-$38.5K</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Forecasting -->
+    <div class="feature reveal">
+      <div class="feature-content">
+        <span class="feature-tag">Forecasting</span>
+        <h3>See where you're headed</h3>
+        <p>Multi-scenario revenue projections that help you plan for best, base, and worst cases. Adjust assumptions and watch your forecast adapt in real-time.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Base, conservative & optimistic scenarios
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Customizable growth assumptions
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            3, 6, 12, and 24-month projections
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+          <div class="forecast-card">
+            <div class="forecast-header">
+              <span class="forecast-title">Revenue Forecast</span>
+              <div class="forecast-tabs">
+              <button class="forecast-tab" type="button" data-range="3M">3M</button>
+              <button class="forecast-tab active" type="button" data-range="6M">6M</button>
+              <button class="forecast-tab" type="button" data-range="12M">12M</button>
+              <button class="forecast-tab" type="button" data-range="24M">24M</button>
+              </div>
+            </div>
+          <div class="forecast-chart">
+            <div class="forecast-y-axis" id="forecast-y-axis"></div>
+            <svg viewBox="0 0 400 200" preserveAspectRatio="none">
+              <!-- Grid -->
+              <line x1="0" y1="50" x2="400" y2="50" stroke="rgba(0,0,0,0.05)" stroke-dasharray="4"/>
+              <line x1="0" y1="100" x2="400" y2="100" stroke="rgba(0,0,0,0.05)" stroke-dasharray="4"/>
+              <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(0,0,0,0.05)" stroke-dasharray="4"/>
+              
+              <!-- Area -->
+              <path id="forecast-area-optimistic" class="chart-area optimistic" d="M0 180 Q100 170 200 140 T400 70 L400 200 L0 200 Z"></path>
+              
+              <!-- Lines -->
+              <path id="forecast-line-optimistic" class="chart-line optimistic" d="M0 180 Q100 170 200 140 T400 70"></path>
+              <path id="forecast-line-base" class="chart-line base" d="M0 180 Q100 175 200 155 T400 110"></path>
+              <path id="forecast-line-conservative" class="chart-line conservative" d="M0 180 Q100 178 200 165 T400 145"></path>
+            </svg>
+            <div class="forecast-x-axis" id="forecast-x-axis"></div>
+          </div>
+          <div class="forecast-stats">
+            <div class="forecast-stat optimistic">
+              <span class="stat-label">Optimistic</span>
+              <span class="stat-value" id="forecast-optimistic">$0</span>
+            </div>
+            <div class="forecast-stat base">
+              <span class="stat-label">Base</span>
+              <span class="stat-value" id="forecast-base">$0</span>
+            </div>
+            <div class="forecast-stat conservative">
+              <span class="stat-label">Conservative</span>
+              <span class="stat-value" id="forecast-conservative">$0</span>
+            </div>
+          </div>
+          <div class="forecast-legend">
+            <div class="legend-item"><span class="legend-dot optimistic"></span> Optimistic</div>
+            <div class="legend-item"><span class="legend-dot base"></span> Base</div>
+            <div class="legend-item"><span class="legend-dot conservative"></span> Conservative</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4: Reports -->
+    <div class="feature reveal">
+      <div class="feature-content">
+        <span class="feature-tag">Custom Reports</span>
+        <h3>Investor-ready reports in seconds</h3>
+        <p>Generate professional financial reports with AI. Choose sections, customize the narrative, and export polished PDFs ready for your board or investors.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Customizable report templates
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            AI-generated executive summaries
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+            One-click PDF export
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="reports-card">
+          <div class="reports-toolbar">
+            <span class="reports-name">Monthly Investor Update</span>
+            <button class="reports-export">Export PDF</button>
+          </div>
+          <div class="reports-content">
+            <div class="reports-section">
+              <div class="reports-section-title">Executive Summary</div>
+              <div class="reports-section-content">
+                November showed strong momentum with MRR growing 12% to $100K. Customer acquisition exceeded targets while burn rate decreased 8% through operational efficiencies.
+              </div>
+            </div>
+            <div class="reports-section">
+              <div class="reports-section-title">Key Metrics</div>
+              <div class="reports-stats">
+                <div class="reports-stat">
+                  <div class="reports-stat-value">$1.2M</div>
+                  <div class="reports-stat-label">ARR</div>
+                </div>
+                <div class="reports-stat">
+                  <div class="reports-stat-value">68%</div>
+                  <div class="reports-stat-label">Gross Margin</div>
+                </div>
+                <div class="reports-stat">
+                  <div class="reports-stat-value">$2,800</div>
+                  <div class="reports-stat-label">LTV</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="faq-container">
+      <h2>Frequently asked questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          How does Crimson connect to my financial data?
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Crimson uses bank-grade OpenBanking APIs like Plaid to securely connect to your accounts. We never store your banking credentials—only read-only access to transaction data. You can also integrate with Stripe, QuickBooks, and Google Sheets for a complete financial picture.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          Is my financial data secure?
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely. We use AES-256 encryption at rest and TLS 1.3 in transit. Your data is isolated in SOC 2 Type II certified infrastructure. We're read-only—we can never move money or make changes to your accounts.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          Can the AI CFO replace my accountant?
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Crimson augments your financial team, not replaces it. Think of it as a 24/7 analyst that handles routine queries, monitoring, and reporting—freeing up your accountant to focus on strategic work, compliance, and complex decisions.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          What kind of questions can I ask?
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Anything about your finances! "What's our runway?", "How much did we spend on marketing last quarter?", "What if we hire 3 engineers next month?", "Show me our top customers by revenue", "Generate a board report for November"—Crimson understands natural language and pulls from your real data.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          How accurate are the forecasts?
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Our forecasts are based on your historical data combined with industry benchmarks. We provide three scenarios (conservative, base, optimistic) so you can plan for different outcomes. The more data we have, the more accurate predictions become—most users see ±15% accuracy within 6 months.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          What does it cost?
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>We're currently in beta and offering early access at no cost. When we launch publicly, pricing will be based on company size and connected accounts. Join the waitlist to lock in founder pricing when we launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-main">
+        <div>
+          <div class="footer-brand">
+            <img src="crimson-logo.png" alt="Crimson">
+            <span>Crimson</span>
+          </div>
+          <p class="footer-desc">AI-powered financial intelligence for startups and SMBs. Make better decisions, faster.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#demo">Demo</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2025 Crimson AI. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+          </a>
+          <a href="mailto:hello@crimson.ai" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Demo video play
+      const demoVideo = document.getElementById('demo-video');
+      const demoOverlay = document.getElementById('demo-overlay');
+      const demoPlay = document.getElementById('demo-play');
+      const demoContainer = document.querySelector('.demo-video');
+      let demoStarted = false;
+
+      const startDemoVideo = () => {
+        if (!demoVideo) return;
+        demoStarted = true;
+        demoVideo.play().catch(() => {});
+        if (demoOverlay) demoOverlay.classList.add('hidden');
+      };
+
+      if (demoOverlay) {
+        demoOverlay.addEventListener('click', startDemoVideo);
+      }
+      if (demoPlay) {
+        demoPlay.addEventListener('click', (e) => {
+          e.stopPropagation();
+          startDemoVideo();
+        });
+      }
+      if (demoVideo) {
+        demoVideo.addEventListener('ended', () => {
+          demoStarted = false;
+          if (demoOverlay) demoOverlay.classList.remove('hidden');
+        });
+      }
+      if (demoContainer && demoVideo) {
+        const demoObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !demoStarted) {
+              startDemoVideo();
+            }
+          });
+        }, { threshold: 0.45 });
+        demoObserver.observe(demoContainer);
+      }
+
+      // Navigation scroll effect
+      const nav = document.getElementById('nav');
+      if (nav) {
+        window.addEventListener('scroll', () => {
+          nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+      }
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (!href || href === '#') return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Waitlist form (exposed globally for inline handler)
+      window.handleWaitlist = function handleWaitlist(e) {
+        e.preventDefault();
+        const input = e.target.querySelector('input[name="email"]');
+        const email = input ? input.value : '';
+        if (email) alert(`Thanks for joining! We'll be in touch at ${email}`);
+        e.target.reset();
+      };
+
+      // FAQ accordion
+      const faqButtons = document.querySelectorAll('.faq-question');
+      faqButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const item = button.parentElement;
+          const isOpen = item && item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+          if (item && !isOpen) item.classList.add('open');
+        });
+      });
+
+      // Scroll reveal
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealOnScroll = () => {
+        revealElements.forEach(el => {
+          const elementTop = el.getBoundingClientRect().top;
+          if (elementTop < window.innerHeight - 100) {
+            el.classList.add('visible');
+          }
+        });
+      };
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll();
+      setTimeout(() => revealElements.forEach(el => el.classList.add('visible')), 400);
+
+      // Hex background drift on scroll
+      const hexOverlay = document.querySelector('.bg-hex');
+      const updateHex = () => {
+        if (!hexOverlay) return;
+        const offset = window.scrollY * 0.06;
+        hexOverlay.style.backgroundPosition = `${offset}px ${-offset}px, ${-offset}px ${offset}px, 0 0`;
+        hexOverlay.style.opacity = Math.min(0.55, 0.25 + window.scrollY / 2000);
+      };
+      window.addEventListener('scroll', updateHex);
+      updateHex();
+
+      // Chat demo sequencing
+      const chatUserMessage = document.getElementById('chat-msg-user');
+      const chatAIMessage = document.getElementById('chat-msg-ai');
+      const chatTyping = document.getElementById('chat-typing');
+      const chatSendButton = document.querySelector('.chat-send');
+      const chatWindow = document.querySelector('.chat-window');
+      let chatHasPlayed = false;
+
+      const playChatDemo = () => {
+        if (!chatUserMessage || !chatAIMessage || !chatTyping) return;
+        chatUserMessage.classList.remove('show');
+        chatAIMessage.classList.remove('show');
+        chatTyping.classList.remove('show');
+
+        setTimeout(() => chatUserMessage.classList.add('show'), 150);
+        setTimeout(() => chatTyping.classList.add('show'), 650);
+        setTimeout(() => {
+          chatTyping.classList.remove('show');
+          chatAIMessage.classList.add('show');
+        }, 1600);
+      };
+
+      if (chatWindow) {
+        const chatObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !chatHasPlayed) {
+              chatHasPlayed = true;
+              playChatDemo();
+            }
+          });
+        }, { threshold: 0.35 });
+        chatObserver.observe(chatWindow);
+      }
+
+      if (chatSendButton) {
+        chatSendButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          chatHasPlayed = true;
+          playChatDemo();
+        });
+      }
+
+      // Forecast tabs interactivity
+      const forecastData = {
+        '3M': {
+          months: ['Dec 25', 'Jan 26', 'Feb 26', 'Mar 26'],
+          scale: ['$0k', '$25k', '$50k', '$75k', '$100k'],
+          max: 100000,
+          series: {
+            optimistic: [75000, 78000, 84000, 93000],
+            base: [75000, 77000, 82000, 88000],
+            conservative: [75000, 76000, 79000, 82000],
+          },
+        },
+        '6M': {
+          months: ['Jan 26', 'Feb 26', 'Mar 26', 'May 26'],
+          scale: ['$0k', '$30k', '$60k', '$90k', '$120k'],
+          max: 120000,
+          series: {
+            optimistic: [80000, 90000, 105000, 118000],
+            base: [80000, 88000, 96000, 104000],
+            conservative: [80000, 85000, 90000, 94000],
+          },
+        },
+        '12M': {
+          months: ['Dec 25', 'Feb 26', 'Apr 26', 'Jun 26', 'Aug 26', 'Nov 26'],
+          scale: ['$0k', '$50k', '$100k', '$150k', '$200k'],
+          max: 200000,
+          series: {
+            optimistic: [82000, 95000, 120000, 150000, 175000, 195000],
+            base: [82000, 90000, 105000, 120000, 135000, 150000],
+            conservative: [82000, 88000, 95000, 105000, 115000, 125000],
+          },
+        },
+        '24M': {
+          months: ['Jan 26', 'Apr 26', 'Jul 26', 'Oct 26', 'Feb 27', 'Jun 27', 'Sep 27', 'Nov 27'],
+          scale: ['$0k', '$150k', '$300k', '$450k', '$600k'],
+          max: 600000,
+          series: {
+            optimistic: [85000, 110000, 160000, 230000, 320000, 430000, 520000, 600000],
+            base: [85000, 100000, 130000, 180000, 240000, 310000, 380000, 450000],
+            conservative: [85000, 95000, 115000, 150000, 190000, 230000, 270000, 320000],
+          },
+        },
+      };
+
+      const forecastTabs = document.querySelectorAll('.forecast-tab');
+      const forecastArea = document.getElementById('forecast-area-optimistic');
+      const forecastLines = {
+        optimistic: document.getElementById('forecast-line-optimistic'),
+        base: document.getElementById('forecast-line-base'),
+        conservative: document.getElementById('forecast-line-conservative'),
+      };
+      const forecastStats = {
+        optimistic: document.getElementById('forecast-optimistic'),
+        base: document.getElementById('forecast-base'),
+        conservative: document.getElementById('forecast-conservative'),
+      };
+      const forecastYAxis = document.getElementById('forecast-y-axis');
+      const forecastXAxis = document.getElementById('forecast-x-axis');
+
+      const chartSize = { width: 400, height: 200, paddingTop: 14, paddingBottom: 12 };
+      const formatCurrency = (value) => `$${Math.round(value / 1000)}k`;
+
+      const buildPaths = (values, max) => {
+        const usableHeight = chartSize.height - chartSize.paddingTop - chartSize.paddingBottom;
+        const step = chartSize.width / Math.max(values.length - 1, 1);
+        const points = values.map((value, index) => {
+          const clamped = Math.max(0, Math.min(value, max));
+          const ratio = clamped / max;
+          const y = chartSize.height - chartSize.paddingBottom - ratio * usableHeight;
+          const x = index * step;
+          return { x, y };
+        });
+
+        if (!points.length) return { line: '', area: '' };
+
+        let line = `M${points[0].x},${points[0].y}`;
+        for (let i = 0; i < points.length - 1; i++) {
+          const midX = (points[i].x + points[i + 1].x) / 2;
+          line += ` Q ${midX},${points[i].y} ${points[i + 1].x},${points[i + 1].y}`;
+        }
+
+        const bottom = chartSize.height - chartSize.paddingBottom;
+        let area = `M0 ${bottom} L ${points[0].x} ${points[0].y}`;
+        for (let i = 0; i < points.length - 1; i++) {
+          const midX = (points[i].x + points[i + 1].x) / 2;
+          area += ` Q ${midX},${points[i].y} ${points[i + 1].x},${points[i + 1].y}`;
+        }
+        area += ` L ${points[points.length - 1].x} ${bottom} L 0 ${bottom} Z`;
+
+        return { line, area };
+      };
+
+      const renderForecast = (range) => {
+        const data = forecastData[range] || forecastData['6M'];
+        if (!data) return;
+
+        Object.keys(forecastLines).forEach((key) => {
+          const pair = forecastLines[key];
+          const stat = forecastStats[key];
+          const built = buildPaths(data.series[key], data.max);
+          if (pair) pair.setAttribute('d', built.line);
+          if (key === 'optimistic' && forecastArea && built.area) {
+            forecastArea.setAttribute('d', built.area);
+          }
+          if (stat) stat.textContent = formatCurrency(data.series[key][data.series[key].length - 1]);
+        });
+
+        if (forecastYAxis) {
+          forecastYAxis.innerHTML = data.scale.slice().reverse().map((value) => `<span>${value}</span>`).join('');
+        }
+        if (forecastXAxis) {
+          forecastXAxis.innerHTML = data.months.map((value) => `<span>${value}</span>`).join('');
+        }
+
+        forecastTabs.forEach((tab) => {
+          tab.classList.toggle('active', tab.dataset.range === range);
+        });
+      };
+
+      forecastTabs.forEach((tab) => {
+        tab.addEventListener('click', () => renderForecast(tab.dataset.range));
+      });
+
+      const activeTab = document.querySelector('.forecast-tab.active');
+      renderForecast(activeTab ? activeTab.dataset.range : '6M');
+    });
+  </script>
+</body>
+</html>
